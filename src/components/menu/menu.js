@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet, Image ,Dimensions, TouchableOpacity, FlatList, } from 'react-native';
 import { connect } from 'react-redux';
 import { datas } from './titleButton';
+import { responseEschedule } from '../../actions/action';
 
 const { width } = Dimensions.get('window');
 
@@ -18,8 +19,27 @@ const { width } = Dimensions.get('window');
     
   }
 
+  componentWillReceiveProps(){
+    
+
+  }
+  
+componentDidUpdate(){
+  // if(this.props.flag.flag)
+  // console.log(this.props.flag.flag === true);
+}
+
+clickEschedule(){
+  
+    const student_id = this.props.student_id;
+    this.props.getEschedule(student_id);
+    this.props.navigation.navigate('eschedule');
+  
+}
+
+
   render() {
-   
+   console.log(this.props.student_id)
     const mssv = this.props.navigation.getParam('mssv','16520364');
     return (
       <View style={styles.backgroud}>
@@ -41,15 +61,17 @@ const { width } = Dimensions.get('window');
                 this.props.navigation.navigate('TKB');
               }
               else if(item.id === '3'){
-                 this.props.navigation.navigate('schedule');
-                
+                const student_id = this.props.student_id;
+                this.props.getEschedule(student_id);
+                this.props.navigation.navigate('eschedule');
+                // this.clickEschedule();
                }
                else if(item.id === '4'){
                 this.props.navigation.navigate('deadline');
                }
               else{
                 alert('chức năng đang phát triển');
-                console.log('flag menu: ', this.props.flag)
+                //console.log('flag menu: ', this.props.flag)
               }
              
             }}>
@@ -81,15 +103,15 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-      flag: state.accountReducer.flag,
+      student_id: state.accountReducer.username,
   }
 }
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    // getAccount: (data) => {
-    //   dispatch(responseLogin(data));
-    // }
+    getEschedule: (data) => {
+      dispatch(responseEschedule(data));
+    }
   }
 }
 

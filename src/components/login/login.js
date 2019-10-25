@@ -20,11 +20,13 @@ class login extends Component {
 
   }
   
-  componentDidMount() {
-    // if (this.props.isLoading === true) {
-        console.log(this.props.flag)
-    //   this.props.navigation.navigate('Menu');
-    // }
+  componentDidUpdate() {
+    if (this.props.isLoading === true) {
+       // console.log(this.props.flag);
+        if(this.props.flag === true){
+          this.props.navigation.navigate('Menu')
+        }
+     }
   }
   
 
@@ -33,11 +35,11 @@ class login extends Component {
     if(this.state.checked === true){   
       this._SaveInAsync();
     }
-    const data = { data:{username: this.state.mssv, password: this.state.password} };
+    const data = {username: this.state.mssv, password: this.state.password} ;
     
     this.props.getAccount(data);
 
-    this.props.navigation.navigate('Menu');
+    //this.props.navigation.navigate('Menu');
    
 
     //console.log("flag", this.props.mssv)
@@ -131,6 +133,7 @@ class login extends Component {
 
 const mapStateToProps = state => {
   return {
+    isLoading: state.accountReducer.isLoading,
     flag: state.accountReducer.flag,
   }
 }

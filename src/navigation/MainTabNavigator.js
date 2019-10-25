@@ -1,11 +1,14 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import colors from '../components/Common/Colors'
-import { APPBAR_HEIGHT } from '../components/Common/Dimension'
-import MenuScreen from '../screens/MenuScreen'
-import TKB from '../components/TestSchedule/TKB'
-import schedule from '../components/schedule/schedule'
-import deadline from '../components/deadline/deadline'
+import colors from '../components/Common/Colors';
+import { APPBAR_HEIGHT } from '../components/Common/Dimension';
+import MenuScreen from '../screens/MenuScreen';
+import TKB from '../components/TestSchedule/TKB';
+import schedule from '../components/schedule/schedule';
+import deadline from '../components/deadline/deadline';
+import eschedule from '../components/eschedule/eschedule';
+
+
 // const ServicesStack = createStackNavigator(
 //   {
 //     Services: ServicesScreen,
@@ -104,6 +107,23 @@ const MainNavigator = createStackNavigator({
       },
     }
   },
+
+  eschedule: {
+    screen: eschedule,
+    navigationOptions: {
+      title: 'Thông tin lịch thi',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
+
   deadline: {
     screen: deadline,
     navigationOptions: {

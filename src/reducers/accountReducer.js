@@ -14,7 +14,7 @@ const accountReducer = (state = initialState, action) => {
       state = action.payload
       return {
        
-        // isLoading: true,
+        isLoading: true,
          ...state
       }
     default:
