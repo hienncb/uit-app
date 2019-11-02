@@ -14,9 +14,12 @@ const { width } = Dimensions.get('window');
 
 class Loading extends Component {  
 
-  async componentDidMount() {
+  async componentDidUpdate() {
+    const data = await this.props.flag;
+    console.log('gfdsf',this.props.accountReducer);
       setTimeout(() => {
-      const data = this.props.flag;
+     
+      console.log(data)
         if (data === false) {
           this.props.navigation.navigate('Login', {check: 1});
         }
@@ -27,11 +30,11 @@ class Loading extends Component {
 
         }
     }, 1000);
-    
-   
   }
   
     render(){
+     // console.log('dsadsadasdas',this.props.accountReducer)
+
       //const isLoading = this.props.navigation.getParam('loading', false)
       //console.log(isLoading)
     return (
@@ -64,6 +67,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
     return {
         flag: state.accountReducer.flag,
+        accountReducer: state.accountReducer,
     }
   }
   const mapDispatchToProps = (dispatch, props) => {

@@ -1,10 +1,7 @@
 import { SAVE_ACCOUNT } from '../actions/ActionTypes';
 
 const initialState = {
-    username: '',
-    password:'',
-    isLoading: true,
-    flag: false
+  
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -14,7 +11,6 @@ const accountReducer = (state = initialState, action) => {
       state = action.payload
       return {
         //count: count + 1,
-        isLoading: false,
          ...state
       }
     default:

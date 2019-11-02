@@ -9,7 +9,7 @@ export const responseLogin=(data)=>{ //POST StudenID && Reponse Data from Studen
   return dispatch=>{
     //console.log('data resques: ', data);
       return callApi(link.login,'POST',{data:data}).then(res=>{
-          //console.log('data tu api: ', res.data);
+          console.log('data tu api: ', res.data);
           dispatch(saveAccount(res.data));
       })
   }

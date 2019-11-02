@@ -15,7 +15,6 @@ class login extends Component {
       mssv:'',
       password:'',
       checked: false,
-      _isLoading: false
     }
    this._GetAsync();
 
@@ -50,10 +49,6 @@ class login extends Component {
   LoginSubmit = () => {
 //    this.props.navigation.navigate('Menu')
     
-
-    this.setState({
-      _isLoading: true
-    })
     if(this.state.checked === true){   
       this._SaveInAsync();
     }
@@ -61,13 +56,12 @@ class login extends Component {
     
     this.props.getAccount(data);
 
-
     this.LoadingFunction();
     //this.LoadingFunction
    
   }
 
-  LoadingFunction = () =>{
+  LoadingFunction() {
     this.props.navigation.navigate('Loading')
   }
 
