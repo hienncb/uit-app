@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { Text, View, StyleSheet, Image ,Dimensions, TouchableOpacity, FlatList, } from 'react-native';
 import { connect } from 'react-redux';
 import { datas } from './titleButton';
-import { responseEschedule } from '../../actions/action';
+import { responseEschedule, responseLogin, responseDeadline } from '../../actions/action';
+
 
 const { width } = Dimensions.get('window');
 
@@ -39,8 +40,8 @@ clickEschedule(){
 
 
   render() {
-   console.log(this.props.student_id)
-    const mssv = this.props.navigation.getParam('mssv','16520364');
+   //console.log(this.props.student_id)
+   /// const mssv = this.props.navigation.getParam('mssv','16520364');
     return (
       <View style={styles.backgroud}>
         <View style={{flexDirection:'row', marginTop: 35, marginHorizontal: 10}}>
@@ -48,8 +49,8 @@ clickEschedule(){
             style={{width: 60, height: 60, borderRadius:100, marginRight: 5}}
             source={require('../../../assets/avata/avata.jpg')}/>
         <View>
-            <Text style={{flex:1, paddingTop: 5}}>{mssv}</Text>
-            <Text style={{flex:1, marginBottom: 5}}>Nguyễn Công Hiển</Text>
+            <Text style={{flex:1, marginTop: 20}}>{this.props.student_id}</Text>
+            {/* <Text style={{flex:1, marginBottom: 5}}>Nguyễn Công Hiển</Text> */}
         </View>
         </View>
         <FlatList data={this.state.title}
@@ -67,8 +68,16 @@ clickEschedule(){
                 // this.clickEschedule();
                }
                else if(item.id === '4'){
+                const data = {username: this.props.student_id, password: this.props.password} ; 
+                this.props.getDeadline(data);
                 this.props.navigation.navigate('deadline');
                }
+
+               else if(item.id === '5'){
+                const data = {username: this.props.student_id, password: "logout"} ; 
+                this.props.navigation.navigate('Login', {check: 2});
+               }
+
               else{
                 alert('chức năng đang phát triển');
                 //console.log('flag menu: ', this.props.flag)
@@ -104,6 +113,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
       student_id: state.accountReducer.username,
+      password: state.accountReducer.password
   }
 }
 
@@ -111,6 +121,12 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getEschedule: (data) => {
       dispatch(responseEschedule(data));
+    },
+    getAccount: (data) => {
+      dispatch(responseLogin(data));
+    },
+    getDeadline: (data) =>{
+      dispatch(responseDeadline(data));
     }
   }
 }

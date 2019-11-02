@@ -1,6 +1,9 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import tabNavigator from './MainTabNavigator';
-import LoginScreen from '../screens/LoginScreen'
+import LoginScreen from '../screens/LoginScreen';
+// import authNavigator from './authNavigator'
+import Loading from '../loading/Loading'
+
 export default createAppContainer(
   createSwitchNavigator({
     // You could add another route here for authentication.
@@ -9,5 +12,11 @@ export default createAppContainer(
       screen: LoginScreen
     },
     Menu: tabNavigator,
-  })
+    Logout: {
+      screen: LoginScreen
+    },
+    Loading: Loading
+  },
+ ), 
+  
 );

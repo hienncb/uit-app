@@ -1,94 +1,94 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image ,Dimensions, TouchableOpacity, FlatList, } from 'react-native';
-import {data} from './data'
-import {  SearchBar, Icon } from 'react-native-elements';
-import styled from 'styled-components';
-import {BoxShadow} from 'react-native-shadow'
-import { responseDeadline } from '../../actions/action';
+import { Text, View, StyleSheet, Image ,Dimensions, ActivityIndicator, FlatList, } from 'react-native';
+import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import { Card } from "native-base";
 
 const { width } = Dimensions.get('window');
-const data12 =  {username: '16520364', password: '1472528310'} ;
+
 
 class deadline extends Component {  
   constructor(props){
     super(props);
-    
-    console.log('data gui len:', data12);
-    this.props.getDeadline(data12)
+  
   }
   
+  componentDidUpdate(){
+
+  }
+
   state={
-    datas:data,
     color:'#3399FF'
 }
 
 
-componentDidUpdate() {
- 
- 
+
+// tạo arr object
+xlarr = () => {
+  const getDeadline = this.props.deadlineReducer;
+  const datas = Object.values( getDeadline );
+  let i = 0;
+  let numbers = [];
+  while (i < (datas.length/3)) {
+    const obj = {
+      'date':datas[i], 
+      'subjects':(datas[(datas.length/3) + i]).split(' - ')[0], 
+      'code': (datas[(datas.length/3) + i]).split(' - ')[1],
+      'describe': datas[(datas.length/3)*2 + i],
+      'id': i
+      };
+    //console.log(i, obj)
+    numbers.push(obj)
+    i++
+  }
+  if(numbers.length!=0){
+    return numbers;
+  }
 }
 
   render() {
     const colorIcon = 'black';
-    const setColor = (index) => {
-      if(index === 'Chưa nộp bài') return 'red';
-      else return '#3399FF'
-    };
-
-
-    const shadowOpt = {
-      width: 100,
-      height: 100,
-      color: "#000",
-      border: 2,
-      radius: 50,
-      opacity: 0.8,
-      x: 3,
-      y: 3,
-      //style: { marginVertical: 5 }
-    }
-  
+    // const setColor = (index) => {
+    //   if(index === 'Chưa nộp bài') return 'red';
+    //   else return '#3399FF'
+    // };
+    const vcl = this.xlarr();
     return (
+      !vcl?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
       <View style={styles.backgroud}>
-        <FlatList data={this.state.datas}
+        <FlatList data={vcl}
           renderItem={({ item }) => (
-              <View style={styles.shadow}>
-                <View style={{margin: 7}}>
-                  <Text> Mã môn học: {item.code}</Text>
-                  <Text> Tên môn học: {item.name}</Text>
-                      <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
-                          <Icon
-                              name="today"
-                              color={colorIcon}
-                              size={15}/>
-                          <Text> Hạn: {item.date}</Text>
-                      </View>
+            <View style={{marginHorizontal: 5}}>
+            <Card>
+              <View style={{margin: 7}}>
+                <Text numberOfLines={1}> {item.subjects}</Text>
 
-                      <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
-                          <Icon
-                              name="av-timer"
-                              color={colorIcon}
-                              size={15}/>
-                          <Text> {item.status}</Text>
-                      </View>
-                  
-                      <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
-                          <Icon
-                              name="rowing"
-                              color={colorIcon}
-                              size={15}/>
-                          <Text > {item.submit}</Text>
-                      </View>
+                <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
+                  <Icon
+                      name="code"
+                      color={colorIcon}
+                      size={15}/>
+                  <Text style={styles.marginText}> Mã môn: {item.code}</Text>
                 </View>
-                <TouchableOpacity style={{ justifyContent:'center', alignItems:'center', padding: 5, borderRadius: 2}} onPress={()=>{
+
+                <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
+                  <Icon
+                      name="note"
+                      color={colorIcon}
+                      size={15}/>
+                  <Text style={styles.marginText}> Mô tả: {item.describe}</Text>
+                </View>
               
-                }}>
-                  {/* <Text style = {{backgroundColor: setColor(item.submit),  borderRadius: 2}}>Xem Thêm</Text> */}
-                </TouchableOpacity>
-            
+                <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
+                  <Icon
+                      name="av-timer"
+                      color={colorIcon}
+                      size={15}/>
+                   <Text style={styles.marginText}> Hạn: {item.date}</Text>
+                </View>
               </View>
-              )}
+            </Card>
+          </View>)}
             keyExtractor={item => item.id.toString()}/>
       </View>
     );
@@ -100,14 +100,14 @@ componentDidUpdate() {
 
 const mapStateToProps = state => {
   return {
-  //  deadlineReducer: state.deadlineReducer
+    deadlineReducer: state.deadlineReducer
   }
 }
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    getDeadline: (data) => {
-      dispatch(responseDeadline(data));
-    }
+    // getDeadline: (data) => {
+    //   dispatch(responseDeadline(data));
+    //}
   }
 }
 
@@ -119,42 +119,17 @@ const styles = StyleSheet.create({
 //   },
   backgroud:{ 
     flex: 1,
-    margin:3,
-    backgroundColor: "#fff"
+    backgroundColor: "#eae9ef"
   },
-  line:{ 
-    flex: 1,
-    height:1,
-    backgroundColor: "#000"
+  marginText: {
+    marginTop: -2,
+    paddingRight: 4
   },
-  containerStyle: {
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 0,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
+  loading:{ 
+    marginTop: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  shadow: {   
-    borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
-}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(deadline)

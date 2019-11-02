@@ -3,8 +3,8 @@ import { SAVE_ACCOUNT } from '../actions/ActionTypes';
 const initialState = {
     username: '',
     password:'',
-    isLoading: false,
-    flag: true
+    isLoading: true,
+    flag: false
 };
 
 const accountReducer = (state = initialState, action) => {
@@ -13,8 +13,8 @@ const accountReducer = (state = initialState, action) => {
       //state = action.data
       state = action.payload
       return {
-       
-        isLoading: true,
+        //count: count + 1,
+        isLoading: false,
          ...state
       }
     default:

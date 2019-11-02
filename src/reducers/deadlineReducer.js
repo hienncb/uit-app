@@ -1,8 +1,7 @@
 import { SAVE_DEADLINE } from '../actions/ActionTypes';
 
 const initialState = {
-    data:'',
-    isLoading: false
+  
 };
 
 const deadlineReducer = (state = initialState, action) => {

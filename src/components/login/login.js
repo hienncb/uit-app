@@ -3,7 +3,8 @@ import { Text, View, TextInput, StyleSheet, Image, ActivityIndicator, Dimensions
 import { CheckBox } from 'react-native-elements'
 import axios from 'axios';
 import { connect } from 'react-redux';
-import {responseLogin} from '../../actions/action'
+import {responseLogin} from '../../actions/action';
+import LoginLoading from '../../loading/Loading'
 
 const { width} = Dimensions.get('window');
 
@@ -14,24 +15,45 @@ class login extends Component {
       mssv:'',
       password:'',
       checked: false,
-      isLoading: false
+      _isLoading: false
     }
    this._GetAsync();
 
   }
   
-  componentDidUpdate() {
-    if (this.props.isLoading === true) {
-       // console.log(this.props.flag);
-        if(this.props.flag === true){
-          this.props.navigation.navigate('Menu')
-        }
-     }
+  componentDidMount(){
+    //   if(nextProps.flag){
+    //     if (!this.props.flag){
+    //       console.log(nextProps.isLoading)
+    //       this.props.navigation.navigate('Menu')
+    //     }
+    //   }
+    //   else if(this.props.flag){
+    //     alert("Đăng xuất thành công!")
+    // }
+    // else{
+    //   alert("Kiểm tra lại tài khoản mật khẩu!")
+    // }
+      try{
+      const check = this.props.navigation.getParam('check');
+      if(check == 1){
+        alert("Kiểm tra lại tài khoản mật khẩu!")
+      }
+      else  if(check == 2){
+        alert("Đăng xuất thành công!")
+      }
+    }catch(err){
+
+    }
   }
-  
 
   LoginSubmit = () => {
- 
+//    this.props.navigation.navigate('Menu')
+    
+
+    this.setState({
+      _isLoading: true
+    })
     if(this.state.checked === true){   
       this._SaveInAsync();
     }
@@ -39,11 +61,17 @@ class login extends Component {
     
     this.props.getAccount(data);
 
-    //this.props.navigation.navigate('Menu');
-   
 
-    //console.log("flag", this.props.mssv)
+    this.LoadingFunction();
+    //this.LoadingFunction
+   
   }
+
+  LoadingFunction = () =>{
+    this.props.navigation.navigate('Loading')
+  }
+
+ 
   
   _GetAsync = async () => {
     try {
@@ -75,14 +103,14 @@ class login extends Component {
       this.setState({ password: text })
   }
 
-  render() {
-    //
 
-    //console.log(this.props.flag)
-    const s = this.props.flag;
+  render() {
+    // console.log(data.length);
     return (
       <ScrollView>
+        
       <View style={styles.backgroud}>
+      {/* <LoginLoading loading = {this.state._isLoading}/> */}
         <Image
           style={{width: 130, height: 155}}
           source={require('../../../assets/logo/UIT.png')}/>
@@ -120,8 +148,8 @@ class login extends Component {
             <Text>LOGIN</Text>
          </TouchableOpacity>
           
-         {/* <ActivityIndicator style={{marginTop: 10}} animating={this.props.mssv.isLoading} /> */}
-        <Text> {s}</Text>
+        
+        
         </View>
         
       </View>
@@ -133,7 +161,7 @@ class login extends Component {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.accountReducer.isLoading,
+    isLoading: state.accountReducer,
     flag: state.accountReducer.flag,
   }
 }

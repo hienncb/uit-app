@@ -111,7 +111,7 @@ const MainNavigator = createStackNavigator({
   eschedule: {
     screen: eschedule,
     navigationOptions: {
-      title: 'Thông tin lịch thi',
+      title: 'Lịch thi',
       //header:null,
       headerTintColor: colors.white,
       headerStyle: {
