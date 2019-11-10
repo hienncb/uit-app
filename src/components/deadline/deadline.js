@@ -52,16 +52,16 @@ xlarr = () => {
     //   if(index === 'Chưa nộp bài') return 'red';
     //   else return '#3399FF'
     // };
-    const vcl = this.xlarr();
+    const data = this.xlarr();
     return (
-      !vcl?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
+      !data?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
       <View style={styles.backgroud}>
-        <FlatList data={vcl}
+        <FlatList data={data}
           renderItem={({ item }) => (
             <View style={{marginHorizontal: 5}}>
             <Card>
               <View style={{margin: 7}}>
-                <Text numberOfLines={1}> {item.subjects}</Text>
+                <Text numberOfLines={1}> { item.subjects}</Text>
 
                 <View style ={{flexDirection: 'row', margin: 5, flex: 1}}>
                   <Icon

@@ -42,15 +42,17 @@ clickEschedule(){
   render() {
    //console.log(this.props.student_id)
    /// const mssv = this.props.navigation.getParam('mssv','16520364');
+   const Name = this.props.name;
+   const img = this.props.image;
     return (
       <View style={styles.backgroud}>
         <View style={{flexDirection:'row', marginTop: 35, marginHorizontal: 10}}>
           <Image
             style={{width: 60, height: 60, borderRadius:100, marginRight: 5}}
-            source={require('../../../assets/avata/avata.jpg')}/>
+            source={{uri: img}}/>
         <View>
-            <Text style={{flex:1, marginTop: 20}}>{this.props.student_id}</Text>
-            {/* <Text style={{flex:1, marginBottom: 5}}>Nguyễn Công Hiển</Text> */}
+            <Text style={{marginTop: 8}}>{this.props.student_id}</Text>
+            <Text style={{marginTop: -1}}>{Name}</Text> 
         </View>
         </View>
         <FlatList data={this.state.title}
@@ -58,10 +60,11 @@ clickEschedule(){
           numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={()=>{
-              if(item.id === '2'){
-                this.props.navigation.navigate('TKB');
-              }
-              else if(item.id === '3'){
+              // if(item.id === '2'){
+              //   this.props.navigation.navigate('TKB');
+              // }
+              // else 
+              if(item.id === '3'){
                 const student_id = this.props.student_id;
                 this.props.getEschedule(student_id);
                 this.props.navigation.navigate('eschedule');
@@ -113,7 +116,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
       student_id: state.accountReducer.username,
-      password: state.accountReducer.password
+      password: state.accountReducer.password,
+      name: state.accountReducer.name,
+      image: state.accountReducer.image
   }
 }
 

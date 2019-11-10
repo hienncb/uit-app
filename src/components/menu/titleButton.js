@@ -1,5 +1,5 @@
 export const datas =[{
-    'title': 'Quy trình học',
+    'title': 'Thông tin DAA',
     'moved': 'TKB',
     'id': '0'
 },

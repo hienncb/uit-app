@@ -16,7 +16,7 @@ class Loading extends Component {
 
   async componentDidUpdate() {
     const data = await this.props.flag;
-    console.log('gfdsf',this.props.accountReducer);
+    //console.log('gfdsf',this.props.accountReducer);
       setTimeout(() => {
      
       console.log(data)

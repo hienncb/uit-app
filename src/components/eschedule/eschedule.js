@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet ,Dimensions, TouchableOpacity, FlatList, } from 'react-native';
+import { Text, View, StyleSheet ,Dimensions, TouchableOpacity, ActivityIndicator, FlatList, } from 'react-native';
 import { Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { Card } from "native-base";
@@ -14,7 +14,6 @@ class eschedule extends Component {
   }
   
   state={
-    data:this.props.getEschedule,
     color:'#3399FF'
 }
 
@@ -22,16 +21,19 @@ class eschedule extends Component {
 componentDidMount() {
 }
 
+getData = () =>{
+  return this.props.getEschedule;
+}
+
   render() {
-    let eschedule = this.props.getEschedule;
+    const eschedule = this.getData();
     const colorIcon = 'black';
     const setColor = (index) => {
       if(index === 'Chưa nộp bài') return 'red';
       else return '#3399FF'
     };
     return (
-      !eschedule?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
-      <View style={styles.backgroud}>
+      eschedule? <View style={styles.backgroud}>
         <FlatList data={eschedule}
           renderItem={({ item }) => (
             <View style={{marginHorizontal: 5}}>
@@ -66,7 +68,7 @@ componentDidMount() {
               </Card>
             </View>)}
             keyExtractor={item => item._id}/>
-      </View>
+      </View> : <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> 
     );
   }
 }
