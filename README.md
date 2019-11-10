@@ -1,5 +1,5 @@
 "# uitApp" 
 "# uit-app" 
 
-để chạy app với đúng api thì sửa lại địa chỉ api ở file.
+sửa lại địa chỉ ip của máy để chạy trên locallhost
 src/api/config
