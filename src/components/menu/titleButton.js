@@ -1,16 +1,13 @@
 export const datas =[{
     'title': 'Thông tin DAA',
-    'moved': 'TKB',
     'id': '0'
 },
 {
     'title': 'Đăng ký học phần',
-    'moved': 'TKB',
     'id': '1'
 },
 {
     'title': 'Xem thời khóa biểu',
-    'moved': 'TKB',
     'id': '2'
 },
 {
@@ -20,11 +17,23 @@ export const datas =[{
 },
 {
     'title': 'Deadline',
-    'moved': 'TKB',
     'id': '4'
 },
+
+{
+    'title': 'Đánh giá app',
+    'id': '6'
+},
+
+{
+    'title': 'Chat nhóm',
+    'id': '7'
+},
+
+
 {
     'title': 'Logout',
-    'moved': 'TKB',
     'id': '5'
-}] 
+}
+
+] 

@@ -6,58 +6,13 @@ import MenuScreen from '../screens/MenuScreen';
 import TKB from '../components/TestSchedule/TKB';
 import schedule from '../components/schedule/schedule';
 import deadline from '../components/deadline/deadline';
+// import daa from '../components/daaInformation/Daa';
 import eschedule from '../components/eschedule/eschedule';
-
-
-// const ServicesStack = createStackNavigator(
-//   {
-//     Services: ServicesScreen,
-//   },
-
-// );
-
-// ServicesStack.navigationOptions = {
-//   tabBarLabel: 'Dịch vụ',
-//   tabBarOptions: {
-//     activeTintColor: colors.green,
-//     labelStyle: {
-//       paddingBottom: Platform.OS === 'ios' ? screenWidth / 41.4 : screenWidth / 80,
-//     },
-//     style: {
-//       borderTopColor: colors.white,
-//       height: Platform.OS === 'ios' ? screenWidth / 7.52 : screenWidth / 7.2,
-//     },
-//   },
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} />
-//   ),
-// };
-
-// const ServicesStack = createStackNavigator(
-//   {
-//     Services: ServicesScreen,
-//   },
-
-// );
-
-// ServicesStack.navigationOptions = {
-//   tabBarLabel: 'Dịch vụ',
-//   tabBarOptions: {
-//     activeTintColor: colors.green,
-//     labelStyle: {
-//       paddingBottom: Platform.OS === 'ios' ? screenWidth / 41.4 : screenWidth / 80,
-//     },
-//     style: {
-//       borderTopColor: colors.white,
-//       height: Platform.OS === 'ios' ? screenWidth / 7.52 : screenWidth / 7.2,
-//     },
-//   },
-//   tabBarIcon: ({ focused }) => (
-//     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} />
-//   ),
-// };
-
-
+import ratting from '../components/rating/rating';
+import group from '../components/chatting/group';
+import chat from '../components/chatting/chatting';
+import CreateGroup from '../components/chatting/creategroup';
+import listFriend from '../components/chatting/listFriend';
 
 const MainNavigator = createStackNavigator({
   
@@ -95,7 +50,7 @@ const MainNavigator = createStackNavigator({
   schedule: {
     screen: schedule,
     navigationOptions: {
-      title: 'Thông tin lịch thi',
+      title: 'Thời khóa biểu',
       //header:null,
       headerTintColor: colors.white,
       headerStyle: {
@@ -107,6 +62,22 @@ const MainNavigator = createStackNavigator({
       },
     }
   },
+
+  // Daa: {
+  //   screen: daa,
+  //   navigationOptions: {
+  //     title: 'Thông tin daa',
+  //     //header:null,
+  //     headerTintColor: colors.white,
+  //     headerStyle: {
+  //       backgroundColor: colors.blue,
+  //       elevation: 0,
+  //       height: APPBAR_HEIGHT,
+  //     },
+  //     headerTitleStyle: {
+  //     },
+  //   }
+  // },
 
   eschedule: {
     screen: eschedule,
@@ -124,6 +95,72 @@ const MainNavigator = createStackNavigator({
     }
   },
 
+  Rating: {
+    screen: ratting,
+    navigationOptions: {
+      title: 'Đánh giá app',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
+
+  Group: {
+    screen: group,
+    navigationOptions: {
+      title: 'Chatting',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
+
+
+
+  CreateGroup: {
+    screen: CreateGroup,
+    navigationOptions: {
+      title: 'Create group',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
+  chat: {
+    screen: chat,
+    navigationOptions: {
+      title: 'Chatting',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
+
+
   deadline: {
     screen: deadline,
     navigationOptions: {
@@ -140,7 +177,24 @@ const MainNavigator = createStackNavigator({
     }
   },
 
+  listFriend:{
+    screen: listFriend,
+    navigationOptions: {
+      title: 'Chatting',
+      //header:null,
+      headerTintColor: colors.white,
+      headerStyle: {
+        backgroundColor: colors.blue,
+        elevation: 0,
+        height: APPBAR_HEIGHT,
+      },
+      headerTitleStyle: {
+      },
+    }
+  },
 });
+
+ 
 
 
 const tabNavigator = createAppContainer(

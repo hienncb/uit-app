@@ -10,7 +10,8 @@ const { width } = Dimensions.get('window');
 class deadline extends Component {  
   constructor(props){
     super(props);
-  
+    this.xlarr();
+
   }
   
   componentDidUpdate(){
@@ -25,25 +26,48 @@ class deadline extends Component {
 
 // tạo arr object
 xlarr = () => {
+  const cc = [];
+  const vc = Object.values( cc );
+  console.log(vc);
+  if(vc[0] == null){
+    console.log('********************************');
+  }
+  if(vc == []){
+    console.log('#################################3');
+  }
   const getDeadline = this.props.deadlineReducer;
+  // alert(getDeadline);
   const datas = Object.values( getDeadline );
   let i = 0;
   let numbers = [];
-  while (i < (datas.length/3)) {
+  if(datas[0]==null){
+    alert('Bạn không có deadline')
     const obj = {
-      'date':datas[i], 
-      'subjects':(datas[(datas.length/3) + i]).split(' - ')[0], 
-      'code': (datas[(datas.length/3) + i]).split(' - ')[1],
-      'describe': datas[(datas.length/3)*2 + i],
-      'id': i
+      'date':'', 
+      'subjects':'Bạn không có deadline', 
+      'code': '',
+      'describe': '',
+      'id': 0
       };
     //console.log(i, obj)
     numbers.push(obj)
-    i++
+  }else{
+    while (i < (datas.length/3)) {
+      const obj = {
+        'date':datas[i], 
+        'subjects':(datas[(datas.length/3) + i]).split(' - ')[0], 
+        'code': (datas[(datas.length/3) + i]).split(' - ')[1],
+        'describe': datas[(datas.length/3)*2 + i],
+        'id': i
+        };
+      //console.log(i, obj)
+      numbers.push(obj)
+      i++
+    }
   }
-  if(numbers.length!=0){
-    return numbers;
-  }
+ this.state={
+   data: numbers
+ }
 }
 
   render() {
@@ -52,11 +76,11 @@ xlarr = () => {
     //   if(index === 'Chưa nộp bài') return 'red';
     //   else return '#3399FF'
     // };
-    const data = this.xlarr();
+    // this.xlarr();
     return (
-      !data?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
+      !this.state.data?  <ActivityIndicator style={styles.loading} animating={true} size="small" color={'blue'} /> :
       <View style={styles.backgroud}>
-        <FlatList data={data}
+        <FlatList data={this.state.data}
           renderItem={({ item }) => (
             <View style={{marginHorizontal: 5}}>
             <Card>
@@ -131,5 +155,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 })
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(deadline)

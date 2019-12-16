@@ -7,6 +7,9 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
+import { 
+  responseSchedule,
+  responseDeadline, } from '../actions/action';
 
 
 const { width } = Dimensions.get('window');
@@ -24,6 +27,10 @@ class Loading extends Component {
           this.props.navigation.navigate('Login', {check: 1});
         }
         else if(data === true){
+          const data = {student_id: this.props.student_id};
+          this.props.getSchedule(data);
+          const deadline=this.props.jar;
+          this.props.getDeadline(deadline);
           this.props.navigation.navigate('Menu');
         }
         else{
@@ -68,11 +75,18 @@ const mapStateToProps = state => {
     return {
         flag: state.accountReducer.flag,
         accountReducer: state.accountReducer,
+        student_id: state.accountReducer.username,
+        jar: state.accountReducer
     }
   }
   const mapDispatchToProps = (dispatch, props) => {
     return  {
-
+      getSchedule: (data) => {
+        dispatch(responseSchedule(data));
+          },
+      getDeadline: (data) =>{
+        dispatch(responseDeadline(data));
+      },
         }  
     }
 

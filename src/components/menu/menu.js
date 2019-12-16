@@ -1,8 +1,25 @@
 import React, {Component} from 'react';
-import { Text, View, StyleSheet, Image ,Dimensions, TouchableOpacity, FlatList, } from 'react-native';
+import { 
+  Text,
+  View,
+  StyleSheet,
+  Image ,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+ } from 'react-native';
 import { connect } from 'react-redux';
 import { datas } from './titleButton';
-import { responseEschedule, responseLogin, responseDeadline } from '../../actions/action';
+import { 
+  responseEschedule, 
+  responseLogin,
+  responseDeadline,
+  responseDaaCroom,
+  responseCompensatory,
+  responseResComment,
+  responseChatreal,
+  getDataFromCreategroup,
+  responseSchedule} from '../../actions/action';
 
 
 const { width } = Dimensions.get('window');
@@ -24,20 +41,72 @@ const { width } = Dimensions.get('window');
     
 
   }
+
+ 
   
 componentDidUpdate(){
   // if(this.props.flag.flag)
   // console.log(this.props.flag.flag === true);
 }
 
-clickEschedule(){
+// clickEschedule(){
   
+//     const student_id = this.props.student_id;
+//     this.props.getEschedule(student_id);
+//     this.props.navigation.navigate('eschedule');
+  
+// }
+
+setClickTranslate(index){
+  if(index === '0'){
+    const student_id = this.props.student_id;
+    this.props.getCompensatory(student_id);
+    this.props.getCroom(student_id);
+    this.props.navigation.navigate('Daa');
+
+  }
+  else if(index === '2'){
+    // const data = {student_id: this.props.student_id};
+    // this.props.getSchedule(data);
+    this.props.navigation.navigate('schedule');
+  }
+  else if(index === '3'){
     const student_id = this.props.student_id;
     this.props.getEschedule(student_id);
     this.props.navigation.navigate('eschedule');
-  
-}
+    // this.clickEschedule();
+   }
+   else if(index === '4'){
+    // const data = {username: this.props.student_id, password: this.props.password, jar: this.props.jar} ; 
+    //console.log("@@@@@",this.props.jar)
+    const data=this.props.jar;
+    this.props.getDeadline(data);
+    this.props.navigation.navigate('deadline');
+   }
 
+   else if(index === '5'){
+    const data = {username: this.props.student_id, password: "logout"} ; 
+    this.props.navigation.navigate('Login', {check: 2});
+   }
+   else if(index === '6'){
+    this.props.getResComment();
+    this.props.navigation.navigate('Rating');
+  }
+
+  else if(index === '7'){
+    this.props.getData();
+    this.props.navigation.navigate('Group');
+  }
+
+  // else if(index === '6'){
+  //   this.props.navigation.navigate('Rating');
+  // }
+
+  else{
+    alert('chức năng đang phát triển');
+    //console.log('flag menu: ', this.props.flag)
+  }
+}
 
   render() {
    //console.log(this.props.student_id)
@@ -60,32 +129,7 @@ clickEschedule(){
           numColumns={2}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={()=>{
-              // if(item.id === '2'){
-              //   this.props.navigation.navigate('TKB');
-              // }
-              // else 
-              if(item.id === '3'){
-                const student_id = this.props.student_id;
-                this.props.getEschedule(student_id);
-                this.props.navigation.navigate('eschedule');
-                // this.clickEschedule();
-               }
-               else if(item.id === '4'){
-                const data = {username: this.props.student_id, password: this.props.password} ; 
-                this.props.getDeadline(data);
-                this.props.navigation.navigate('deadline');
-               }
-
-               else if(item.id === '5'){
-                const data = {username: this.props.student_id, password: "logout"} ; 
-                this.props.navigation.navigate('Login', {check: 2});
-               }
-
-              else{
-                alert('chức năng đang phát triển');
-                //console.log('flag menu: ', this.props.flag)
-              }
-             
+              this.setClickTranslate(item.id)
             }}>
               <View style={styles.itemViewStyles}>
                 <Text> {item.title}</Text>
@@ -118,7 +162,8 @@ const mapStateToProps = state => {
       student_id: state.accountReducer.username,
       password: state.accountReducer.password,
       name: state.accountReducer.name,
-      image: state.accountReducer.image
+      image: state.accountReducer.image,
+      jar: state.accountReducer,
   }
 }
 
@@ -132,6 +177,25 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     getDeadline: (data) =>{
       dispatch(responseDeadline(data));
+    },
+    getCroom: (daa)=>{
+      dispatch(responseDaaCroom(daa));
+    
+    },
+    // getSchedule: (data) => {
+    //   dispatch(responseSchedule(data));
+    // },
+    getChatreal: (daa)=>{
+      dispatch(responseChatreal(daa))
+    },
+    getResComment: (daa)=>{
+      dispatch(responseResComment(daa))
+    },
+    getCompensatory: (daa)=>{
+      dispatch(responseCompensatory(daa))
+    },
+    getData: () => {
+      dispatch(getDataFromCreategroup());
     }
   }
 }
